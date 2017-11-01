@@ -1,19 +1,23 @@
 function r = sourceToTile(img, side)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+%sourceToFile Resize a source image into square of indicated size
+%   img - the image
+%   side - length of one side in pixels
 [x, y, dim] = size(img);
 
-while (true)
+while (true && side > 1)
     var = min(x, y);
-    if (var / 2 < side)
+    if (var / 2 <= side)
         break;
     end
     
     img = impyramid(img, 'reduce');
     [x, y, dim] = size(img);
 end
-imgCropped = imcrop(img, [0, 0, side, side]);
+X = floor((x - side) / 2);
+Y = floor((y - side) / 2);
+imgCropped = imcrop(img, [Y, X, side-1, side-1]);
 r = imgCropped;
-imshow(imgCropped);
+%imshow(imgCropped); [(x - side) / 2 , (y - side) / 2, side, side]
+%disp((y - side)/2);
 end
 

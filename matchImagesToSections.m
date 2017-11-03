@@ -7,6 +7,7 @@ function images = matchImagesToSections(goals, sources)
 %   array
 
 
+
 [x, y] = size(goals);
 goals2 = reshape(goals, [], 1);
 images = cell(x, y);
@@ -17,22 +18,22 @@ matchedLogical = zeros(size(sources));
 
 for i = 1 : size(goals2)
     [a, value] = measureSimilarity(goals2{i}, sources);
-    disp("a: "+a);
+    %disp("a: "+a);
     
     %Ensure no duplicate matches
     members = ismember(matched, a);
     if (~all(members < 1))
-     %   disp("All members not < 1");
+     %   %disp("All members not < 1");
         b = (img == a);
         index = find(b);
         if (value < values(index))
             img(i) = a;
             matched(i) = a;
             matchedLogical(a) = 1;
-      %      disp("Value less than index: "+a+value);
+      %      %disp("Value less than index: "+a+value);
         else
             index = i;
-       %     disp("Value larger than index");
+       %     %disp("Value larger than index");
         end
         %disp("Index: " + index);
         %Find new value for duplicate
@@ -49,7 +50,7 @@ for i = 1 : size(goals2)
             if matchedLogical(n) == 0
                 if counter == a2
                     aFinal = n;
-                    disp("aFinal: "+aFinal);
+                    %disp("aFinal: "+aFinal);
                     break;
                 end
                 counter = counter + 1;
@@ -66,7 +67,7 @@ for i = 1 : size(goals2)
         matchedLogical(a) = 1;
     end
     
-    disp(matchedLogical);
+    %disp(matchedLogical);
 end
 
 %Create cell array of images

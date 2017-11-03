@@ -1,4 +1,4 @@
-function img = measureSimilarity(goal, sources)
+function [img, lowestValue] = measureSimilarity(goal, sources)
 %MEASURESIMILARITY Get histograms of source images, return the best match
 %   goal - section of the original image
 %   sources - source images to be matched
@@ -9,7 +9,6 @@ function img = measureSimilarity(goal, sources)
 
 lowestValue = Inf;
 gHist = imhist(goal);
-%disp(length(sources));
 
 for i = 1 : length(sources)
     distance = pdist2(imhist(sources{i})', gHist');

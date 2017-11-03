@@ -10,42 +10,63 @@ function images = matchImagesToSections(goals, sources)
 [x, y] = size(goals);
 goals2 = reshape(goals, [], 1);
 images = cell(x, y);
-img(size(goals2)) = ' ';
+img = 1:size(goals2);
 values = zeros(size(goals2));
-matched = size(goals2);
-%matchedLogical = zeros(size(sources));
+matched = zeros(size(goals2));
+matchedLogical = zeros(size(sources));
 
 for i = 1 : size(goals2)
-    [a, value] = measure(goals2{i}, sources);
-    disp(a);
+    [a, value] = measureSimilarity(goals2{i}, sources);
+    disp("a: "+a);
+    
     %Ensure no duplicate matches
     members = ismember(matched, a);
     if (~all(members < 1))
-        disp("wo");
+     %   disp("All members not < 1");
         b = (img == a);
         index = find(b);
         if (value < values(index))
             img(i) = a;
+            matched(i) = a;
+            matchedLogical(a) = 1;
+      %      disp("Value less than index: "+a+value);
         else
             index = i;
+       %     disp("Value larger than index");
         end
-    
+        %disp("Index: " + index);
         %Find new value for duplicate
         sources2 = sources;
-        disp(all(matched));
-        sources2(all(matched)) = [];
-        [a2, value2] = measure(goals{index}, sources2);
-        matched(index) = a2;
+        %disp("mL: "+matchedLogical);   
+        sources2(logical(matchedLogical)) = [];
+        %disp(sources);
+        %disp(sources2);
+        [a2, value2] = measureSimilarity(goals{index}, sources2);
+        %disp("a2: "+a2);
+        %Calculate index that matches the original
+        counter = 1;
+        for n = 1 : length(matchedLogical)
+            if matchedLogical(n) == 0
+                if counter == a2
+                    aFinal = n;
+                    disp("aFinal: "+aFinal);
+                    break;
+                end
+                counter = counter + 1;
+            end
+        end
+        
+        matched(i) = aFinal;
+        matchedLogical(aFinal) = 1;
         values(index) = value2;
-        img(index) = a2;
-
+        img(index) = aFinal;
     else
-        disp("po");
         img(i) = a;
+        matched(i) = a;
+        matchedLogical(a) = 1;
     end
-    disp("ro");
-    matched(i) = a;
-    %matchedLogical(a) = 1;
+    
+    disp(matchedLogical);
 end
 
 %Create cell array of images

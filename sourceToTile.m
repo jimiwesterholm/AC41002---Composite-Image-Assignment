@@ -17,7 +17,13 @@ while (true && sideX > limit && sideY > limit)
 end
 X = floor((x - sideX) / 2);
 Y = floor((y - sideY) / 2);
-imgCropped = imcrop(img, [Y, X, sideY-1, sideX-1]);
+if X == 0
+    X = 1;
+end
+if Y == 0
+    Y = 1;
+end
+imgCropped = imcrop(img, [Y, X, sideX-1, sideY-1]);
 r = imgCropped;
 %imshow(imgCropped); [(x - side) / 2 , (y - side) / 2, side, side]
 %disp((y - side)/2);

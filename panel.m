@@ -185,6 +185,7 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 goalpath = get(handles.edit1,'String');
 goal = imread(goalpath);
 sourcepath = get(handles.edit2,'String');
+sourcepath = strcat(sourcepath, '\\');
 
 a = str2double(get(handles.edit3,'String'));
 b = str2double(get(handles.edit4,'String'));
@@ -193,6 +194,7 @@ b = str2double(get(handles.edit4,'String'));
 
 [goals width height] = cropimg_new(goal, a, b);
 sources = sourcesToTiles(sourceImg, b, a);
+disp(sources{1, 1});
 img = matchImagesToSections(goals, sources);
 img = drawimg_new(img,width, height);
 imshow(img);

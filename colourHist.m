@@ -5,7 +5,7 @@ function h = colourHist(img, binSize)
 %   binSize - Bins per RGB channel - actual amount of bins will therefore
 %   be binSize^3
 
-[x, y, dim] = size(img);
+[x, y, ~] = size(img);
 h = zeros([binSize*binSize*binSize, 1]);
 div = 256/(binSize - 1);
 for i=1 : x

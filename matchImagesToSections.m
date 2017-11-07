@@ -18,11 +18,11 @@ matchedLogical = zeros(size(sources));
 
 for i = 1 : size(goals2)
     [a, value] = measure(goals2{i}, sources);
-    %disp("a: "+a);
+    disp("a: "+a);
     
-    %Ensure no duplicate matches
+    %Ensure no duplicate matches ~all(members < 1
     members = ismember(matched, a);
-    if (~all(members < 1))
+    if (2 < 1)
      %   %disp("All members not < 1");
         b = (img == a);
         index = find(b);
@@ -42,7 +42,7 @@ for i = 1 : size(goals2)
         sources2(logical(matchedLogical)) = [];
         %disp(sources);
         %disp(sources2);
-        [a2, value2] = measure(goals{index}, sources2);
+        [a2, value2] = measure(goals2{index}, sources2);
         %disp("a2: "+a2);
         %Calculate index that matches the original
         counter = 1;

@@ -6,13 +6,15 @@ function img = drawimg_new(C, width, height)
 
 % return target image
 
-img = ones(height, width, 3, 'uint8');
+img = ones(width, height, 3, 'uint8');
 
 [m,n] = size(C);
 [sy,sx,~] = size(C{1,1});
 
 for i = 1:m
+    disp(i);
     for j = 1:n
+        disp(j);
         img((i-1)*sy+1:i*sy, (j-1)*sx+1:j*sx,:) = C{i,j};
     end
 end

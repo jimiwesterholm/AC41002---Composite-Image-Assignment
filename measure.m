@@ -8,10 +8,10 @@ function [img, lowestValue] = measure(goal, sources)
 %same size - same number of pixels
 
 lowestValue = Inf;
-gHist = colourHist(goal, 3);
+gHist = colourHist(goal, 2);
 
 for i = 1 : length(sources)
-    distance = pdist2(colourHist(sources{i}, 3)', gHist');
+    distance = pdist2(colourHist(sources{i}, 2)', gHist');
     if distance < lowestValue
         lowestValue = distance;
         img = i;

@@ -6,7 +6,7 @@ function img = drawimg_new(C, width, height)
 
 % return target image
 
-img = ones(width, height, 3, 'uint8');
+img = ones(height, width, 3, 'uint8');
 
 [m,n] = size(C);
 [sy,sx,~] = size(C{1,1});

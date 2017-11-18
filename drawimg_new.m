@@ -12,9 +12,7 @@ img = ones(height, width, 3, 'uint8');
 [sy,sx,~] = size(C{1,1});
 
 for i = 1:m
-    disp(i);
     for j = 1:n
-        disp(j);
         img((i-1)*sy+1:i*sy, (j-1)*sx+1:j*sx,:) = C{i,j};
     end
 end

@@ -14,8 +14,8 @@ row = floor(m/sy);
 
 C = cell(row, column);
 
-edgex = floor((n-column*sx)/2);
-edgey = floor((m-row*sy)/2);
+edgex = mod(n, sx);
+edgey = mod(m, sy);
 
 for i = 1:row
     for j = 1:column

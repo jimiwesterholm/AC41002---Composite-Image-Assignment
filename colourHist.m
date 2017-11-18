@@ -7,7 +7,9 @@ function h = colourHist(img, binSize)
 
 [x, y, ~] = size(img);
 h = zeros([binSize*binSize*binSize, 1]);
-div = 256/(binSize - 1);
+div = 256/binSize;
+% div = 256/(binSize - 1);
+
 for i=1 : x
     for j=1 : y
         r = floor(img(i, j, 1)/div);

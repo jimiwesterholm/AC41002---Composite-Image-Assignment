@@ -18,7 +18,7 @@ matchedLogical = zeros(size(sources));
 
 for i = 1 : size(goals2)
     [a, value] = measure(goals2{i}, sources);
-    disp("a: "+a);
+    % disp("a: "+a);
     
     %Ensure no duplicate matches ~all(members < 1
     members = ismember(matched, a);
@@ -72,11 +72,19 @@ end
 
 %Create cell array of images
 counter = 1;
-for i = 1 : x
-    for j = 1 : y
-        images{i, j} = sources{img(counter)};
+% for i = 1 : x
+%     for j = 1 : y
+%         images{i, j} = sources{img(counter)};
+%         counter = counter + 1;
+%     end
+% end
+
+for i = 1 :y
+    for j = 1 : x
+        images{j, i} = sources{img(counter)};
         counter = counter + 1;
     end
 end
+
 end
 

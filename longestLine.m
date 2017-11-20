@@ -1,4 +1,4 @@
-function [ ratio ] = edgesToLinesRatio( image )
+function [ result ] = longestLine( image )
 %EDGESTOLINESRATIO Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -18,11 +18,11 @@ for i=1 : length(lines)
     dist(i) = sqrt((lines(i).point1(1) - lines(i).point2(1))^2 + (lines(i).point1(2) - lines(i).point2(2))^2);
 end
 dist = sort(dist, 'descend');
-ratio = dist(1);
+result = dist(1);
 if length(dist) > 2
-    ratio =  ratio+dist(2);
+    result =  result+dist(2);
 elseif length(dist) > 3
-    ratio = ratio+dist(3);
+    result = result+dist(3);
 end
 %ratio =  dist(1) + dist(2) + dist(3);
 %ratio = imgPixels(1) / max(dist(:));

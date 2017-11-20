@@ -15,7 +15,6 @@ for i=1 : x
         g = floor(img(i, j, 2)/div);
         b = floor(img(i, j, 3)/div);
         index = r*binSize*binSize + g*binSize + b + 1;
-        %disp(index);
         h(index) = h(index) + 1;
     end
 end

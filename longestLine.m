@@ -1,5 +1,5 @@
 function [ result ] = longestLine( image )
-%EDGESTOLINESRATIO Summary of this function goes here
+%LONGESTLINE Summary of this function goes here
 %   Detailed explanation goes here
 
 edges = edge(image, 'canny');

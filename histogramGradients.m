@@ -6,7 +6,6 @@ function [histogram] = histogramGradients (I)
 
 [y, x, ~] = size(I);
 histogram = zeros([9, 1]);
-div = 40;
 for i=1 : y
     for j=1 : x
         index = floor((gDir(i, j) + 180) / 40) + 1;
@@ -14,7 +13,6 @@ for i=1 : y
     end
 end
 
-histogram = histogram - min(histogram(:));
-histogram = histogram ./ max(histogram(:));
+histogram = histogram ./ sum(histogram(:));
 
 end

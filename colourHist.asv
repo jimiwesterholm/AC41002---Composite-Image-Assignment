@@ -19,7 +19,8 @@ for i=1 : x
     end
 end
 
-h = h ./ sum(h(:));
+histogram = histogram - min(histogram(:));
+histogram = histogram ./ max(histogram(:));
 
 end
 

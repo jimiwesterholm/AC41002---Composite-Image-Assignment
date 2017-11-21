@@ -1,4 +1,4 @@
-function [colorDist, gradientDist] = measure(goal, sources, colourBin, gradBinDiv)
+function [colorDist, gradientDist] = measure(goal, sources, gradBinDiv)
 %MEASURE Get histograms of source images, return the distances to the goal
 %section
 %   goal - section of the original image
@@ -8,15 +8,15 @@ function [colorDist, gradientDist] = measure(goal, sources, colourBin, gradBinDi
 %Add normalisation? Might not be needed since each image is already the
 %same size - same number of pixels
 
-gCHist = colourHist(goal, colourBin);
+lowestValue = Inf;
+gCHist = colourHist(goal, 8);
 gGHist = gradientHistogramsBySections(goal, gradBinDiv);
 % gHist = colourHist_new(goal, 16);
 % gHist = colourHist_new(goal, 2);
 colorDist = zeros(length(sources), 1);
-gradientDist = zeros(length(sources), 1);
 for i = 1 : length(sources)
-    colorDist(i, 1) = pdist2(gCHist', colourHist(sources{i}, colourBin)');
-    secHists = gradientHistogramsBySections(sources{i}, gradBinDiv);
+    colorDist(i, 1) = pdist2(gCHist', colourHist(sources{i}, 8)');
+    
     for a = 1 : gradBinDiv*2 - 1
         for b = 1 : gradBinDiv*2 - 1
             gradientDist(i, 1) = gradientDist(i, 1) + pdist2(gGHist{a, b}', secHists{a, b}');
@@ -24,8 +24,7 @@ for i = 1 : length(sources)
     end
 end
 
-%Normalise distances
-gradientDist = gradientDist ./ sum(gradientDist(:));
-colorDist = colorDist ./ sum(colorDist(:));
+colorDist = colorDist - min(colorDist(:));
+colorDist = colorDist ./ max(colorDist(:));
 end
 

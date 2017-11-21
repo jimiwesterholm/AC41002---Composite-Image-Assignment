@@ -5,8 +5,6 @@ function images = matchImagesToSections(goals, sources, wc, wg)
 %   cell array
 %   sources - images to match, converted by sourceToTile. Should be a cell
 %   array
-%   wc - colour weight
-%   wg - gradient weight
 
 
 
@@ -19,13 +17,13 @@ matched = zeros(size(goals2));
 matchedLogical = zeros(size(sources));
 
 for i = 1 : size(goals2)
-    [colourDist, gradientDist] = measure(goals2{i}, sources, 4, 3);
+    [colourDist, gradientDist] = measure(goals2{i}, sources);
     %Find weighted overall best match
     distances = zeros(length(colourDist), 1);
     for j = 1 : length(colourHist)
-        distances(j, 1) = colourHist(j, 1) * wc + gradientDist(j, 1) * wg;
+        distances(j, 1) = colourHist(j) * wc + gradientHist(j) * wg;
     end
-    a = find(distances == min(distances(:)));
+    a = find(min(distances(:));
     a = a(1);   %If more than one are equal, choose first
     % disp("a: "+a);
     
@@ -78,9 +76,7 @@ for i = 1 : size(goals2)
     end
     %}
     %disp(matchedLogical);
-    img(i) = a;
-    matched(i) = a;
-    matchedLogical(a) = 1;
+    
 end
 
 %Create cell array of images

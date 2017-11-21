@@ -17,6 +17,7 @@ result(1:naturalSize, 2:9)= generate_colourHist(natural);
 result(naturalSize+1:naturalSize+manmadeSize, 2:9) = generate_colourHist(manmade); 
 result(1:naturalSize, 1)= result1(:,1);
 result(naturalSize+1:naturalSize+manmadeSize, 1) = result2(:,1); 
+result(1:naturalSize+manmadeSize,1) = result(1:naturalSize+manmadeSize,1)*1000;
 
 
 Mdl = fitcknn(result,species,'NumNeighbors',5,'Standardize',1)

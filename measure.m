@@ -3,6 +3,10 @@ function [colorDist, gradientDist] = measure(goal, sources, colourBin, gradBinDi
 %section
 %   goal - section of the original image
 %   sources - source images to be matched
+%   colourBin - determines the amount of bins per colour - total bins
+%   therefore the value cubed
+%   gradBinDiv - how many sections to split the image into - gradients are taken
+%   from these + in between each one3
 
 
 %Add normalisation? Might not be needed since each image is already the

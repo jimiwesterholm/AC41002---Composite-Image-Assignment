@@ -1,4 +1,4 @@
-function images = matchImagesToSections(goals, sources, wc, wg)
+function images = matchImagesToSections(goals, sources, wc, wg, cb, gb)
 %MATCHIMAGESTOSECTIONS Match each section of original image to the best
 %matching source image
 %   goals - image to be matched against, split into sections. Should be a
@@ -7,6 +7,10 @@ function images = matchImagesToSections(goals, sources, wc, wg)
 %   array
 %   wc - colour weight
 %   wg - gradient weight
+%   cb - determines the amount of bins per colour - total bins
+%   therefore the value cubed8
+%   gb - how many sections to split an image into - gradient histograms are taken
+%   from these + in between each one2
 
 
 
@@ -14,16 +18,22 @@ function images = matchImagesToSections(goals, sources, wc, wg)
 goals2 = reshape(goals, [], 1);
 images = cell(x, y);
 img = 1:size(goals2);
-values = zeros(size(goals2));
-matched = zeros(size(goals2));
-matchedLogical = zeros(size(sources));
+%values = zeros(size(goals2));
+%matched = zeros(size(goals2));
+%matchedLogical = zeros(size(sources));
+sourceGrad = cell(size(sources));
+sourceCol = cell(size(sources));
+for i = 1 : length(sources)
+    sourceGrad{i} = gradientHistogramsBySections(sources{i}, gb);
+    sourceCol{i} = colourHist(sources{i}, cb);
+end
 
 for i = 1 : size(goals2)
-    [colourDist, gradientDist] = measure(goals2{i}, sources, 4, 3);
+    [colourDist, gradientDist] = measure(goals2{i}, sourceGrad, sourceCol, gb, cb);
     %Find weighted overall best match
     distances = zeros(length(colourDist), 1);
-    for j = 1 : length(colourHist)
-        distances(j, 1) = colourHist(j, 1) * wc + gradientDist(j, 1) * wg;
+    for j = 1 : length(colourDist)
+        distances(j, 1) = colourDist(j, 1) * wc + gradientDist(j, 1) * wg;
     end
     a = find(distances == min(distances(:)));
     a = a(1);   %If more than one are equal, choose first
@@ -32,7 +42,7 @@ for i = 1 : size(goals2)
     %{
     %Ensure no duplicate matches ~all(members < 1
     members = ismember(matched, a);
-    if (2 < 1)
+    if (members(:) < 1)
      %   %disp("All members not < 1");
         b = (img == a);
         index = find(b);
@@ -79,19 +89,10 @@ for i = 1 : size(goals2)
     %}
     %disp(matchedLogical);
     img(i) = a;
-    matched(i) = a;
-    matchedLogical(a) = 1;
 end
 
 %Create cell array of images
 counter = 1;
-% for i = 1 : x
-%     for j = 1 : y
-%         images{i, j} = sources{img(counter)};
-%         counter = counter + 1;
-%     end
-% end
-
 for i = 1 :y
     for j = 1 : x
         images{j, i} = sources{img(counter)};

@@ -37,8 +37,7 @@ for i = 1 : size(goals2)
     for j = 1 : length(colourDist)
         distances(j, 1) = colourDist(j, 1) * wc + gradientDist(j, 1) * wg;
     end
-    distances = distances - min(distances(:));
-    a = find(distances == 0);
+    a = distances == min(distances(:)));
     a = a(1);   %If more than one are equal, choose first
     % disp("a: "+a);
     

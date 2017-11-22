@@ -25,6 +25,8 @@ sourceGrad = cell(size(sources));
 sourceCol = cell(size(sources));
 for i = 1 : length(sources)
     sourceGrad{i} = gradientHistogramsBySections(sources{i}, gb);
+    %uncomment for sim
+    %sourceGrad{i} = histogramGradients(sources{i});
     sourceCol{i} = colourHist(sources{i}, cb);
 end
 

@@ -6,9 +6,9 @@ function r = sourceToTile(img, sideX, sideY)
 [x, y, ~] = size(img);
 limit = 8;
 
-while (true && sideX > limit && sideY > limit)
+while (sideX > limit && sideY > limit)
     var = min(x, y);
-    if (var / 2 <= sideY || var / 2 <= sideX || var ~= 0)
+    if (var / 2 <= sideY || var / 2 <= sideX || var == 0)
         break;
     end
     

@@ -1,10 +1,9 @@
 function img = drawimg_new(C, width, height)
 
-% C --> cell array that contains the images in same size
-% width --> width of target image
-% height --> height of target image
-
-% return target image
+% give source images, and composite them into a new image.
+% C - cell array that contains the images in same size
+% width - width of target image
+% height - height of target image
 
 img = ones(height, width, 3, 'uint8');
 

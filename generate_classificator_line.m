@@ -1,6 +1,6 @@
 function [ Mdl timing] = generate_classificator_line( natural, manmade)
-%PARTB Summary of this function goes here
-%   Detailed explanation goes here
+%PARTB generate a classificator using logest line
+% result has already be saved in classificatorLine.mat
 tic
 species = generate_species(natural, manmade);
 
@@ -15,7 +15,6 @@ result2 = cell2mat(result2);
 
 result(1:naturalSize, :)= result1(1:naturalSize, :);
 result(naturalSize+1:naturalSize+manmadeSize, :) = result2(1:manmadeSize,:); 
-
 
 Mdl = fitcknn(result,species,'NumNeighbors',5,'Standardize',1);
 timing = toc;

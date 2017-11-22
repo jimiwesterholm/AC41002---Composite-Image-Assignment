@@ -1,11 +1,12 @@
 function [C width height] = cropimg_new(I, sx, sy)
 
+% give a target image, crop it into given size
+% cut image to center, not concern the edge part
 % return cell array, width and height
-% not concern the edge part(cut img to center)
 
-% I --> Image
-% sx --> cut to width
-% sy --> cut to height
+% I - target image
+% sx - cut to width
+% sy - cut to height
 
 [m, n, ~] = size(I);
 

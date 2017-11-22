@@ -2,3 +2,4 @@ Images/*
 process.m
 colourHist.m
 process.m
+generate_classificator_line_angle.m

@@ -8,9 +8,9 @@ function images = matchImagesToSections(goals, sources, wc, wg, cb, gb)
 %   wc - colour weight
 %   wg - gradient weight
 %   cb - determines the amount of bins per colour - total bins
-%   therefore the value cubed8
+%   therefore the value cubed
 %   gb - how many sections to split an image into - gradient histograms are taken
-%   from these + in between each one2
+%   from these + in between each one
 
 
 

@@ -12,7 +12,9 @@ for i=1 : y
         histogram(index) = histogram(index) + gMag(i, j);
     end
 end
-
-histogram = histogram ./ sum(histogram(:));
+histSum = sum(histogram);
+if(histSum ~= 0)
+    histogram = histogram ./ sum(histogram(:));
+end
 
 end

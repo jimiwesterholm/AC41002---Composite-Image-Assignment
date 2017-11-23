@@ -1,6 +1,6 @@
 function [ result ] = longestLine( image )
-%LONGESTLINE Summary of this function goes here
-%   Detailed explanation goes here
+%LONGESTLINE Find the length of the longest straight line
+%   image - the grayscale image to find the line from
 
 edges = edge(image, 'canny');
 [ihough, theta, rho]= hough(edges);
@@ -11,7 +11,7 @@ peaks = houghpeaks(ihough, 10000, 'Threshold', 0.5*max(ihough(:)));
 lines = houghlines(edges, theta, rho, peaks, 'MinLength', 5, 'FillGap',5);
 
 %totalEdges = sum(sum(edges));
-imgPixels = size(image(:));
+%imgPixels = size(image(:));
 
 dist = zeros(length(lines), 1);
 for i=1 : length(lines)
@@ -19,11 +19,7 @@ for i=1 : length(lines)
 end
 dist = sort(dist, 'descend');
 result = dist(1);
-if length(dist) > 2
-    result =  result+dist(2);
-elseif length(dist) > 3
-    result = result+dist(3);
-end
+
 %ratio =  dist(1) + dist(2) + dist(3);
 %ratio = imgPixels(1) / max(dist(:));
 
